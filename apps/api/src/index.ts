@@ -2,7 +2,8 @@ import Fastify from 'fastify';
 import cors from '@fastify/cors';
 import type { RespuestaAPI } from '@agentes/contracts/api';
 import type { EstadoImperio } from '@agentes/contracts/game';
-import { ESTADO_IMPERIO_MOCK } from './mock-state.js';
+import { cargarEstadoImperio } from './db/empire-state.js';
+import { pingDatabase } from './db/client.js';
 
 const host = process.env.HOST ?? '0.0.0.0';
 const port = Number(process.env.PORT ?? '3000');
@@ -15,16 +16,33 @@ await app.register(cors, {
   origin: true
 });
 
-app.get('/health', async () => ({
-  ok: true,
-  service: 'agentes-api'
-}));
+app.get('/health', async () => {
+  const database = await pingDatabase();
+  return {
+    ok: database,
+    service: 'agentes-api',
+    database
+  };
+});
 
-app.get('/api/v1/empire/state', async (): Promise<RespuestaAPI<EstadoImperio>> => ({
-  exito: true,
-  datos: ESTADO_IMPERIO_MOCK,
-  mensaje: 'Estado mock servido desde el backend local'
-}));
+app.get<{ Querystring: { userId?: string } }>('/api/v1/empire/state', async (request, reply): Promise<RespuestaAPI<EstadoImperio>> => {
+  const estado = await cargarEstadoImperio(request.query.userId);
+
+  if (!estado) {
+    reply.code(404);
+    return {
+      exito: false,
+      datos: {} as EstadoImperio,
+      error: 'No se encontro ningun imperio para el criterio solicitado'
+    };
+  }
+
+  return {
+    exito: true,
+    datos: estado,
+    mensaje: 'Estado servido desde Postgres'
+  };
+});
 
 app.get('/api/v1/meta/stack', async () => ({
   exito: true,

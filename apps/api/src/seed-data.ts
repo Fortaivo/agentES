@@ -1,6 +1,6 @@
 import type { EstadoImperio, Recursos } from '@agentes/contracts/game';
 
-const RECURSOS_MOCK: Recursos = {
+export const RECURSOS_SEED: Recursos = {
   oro: 4200,
   comida: 3900,
   madera: 1800,
@@ -21,7 +21,7 @@ const RECURSOS_MOCK: Recursos = {
   agua: 1019
 };
 
-export const ESTADO_IMPERIO_MOCK: EstadoImperio = {
+export const ESTADO_IMPERIO_SEED: EstadoImperio = {
   userId: 'demo-user',
   nombreImperio: 'Tierras Doradas',
   raza: 'elfos',
@@ -47,9 +47,16 @@ export const ESTADO_IMPERIO_MOCK: EstadoImperio = {
       limiteTropas: 10000,
       edificios: [
         { id: 'e1', tipo: 'castillo', nivel: 1, nivelMaximo: 10, enConstruccion: false },
-        { id: 'e2', tipo: 'muralla', nivel: 1, nivelMaximo: 10, enConstruccion: false }
+        { id: 'e2', tipo: 'muralla', nivel: 1, nivelMaximo: 10, enConstruccion: false },
+        { id: 'e3', tipo: 'armeria', nivel: 2, nivelMaximo: 10, enConstruccion: false },
+        { id: 'e4', tipo: 'foso', nivel: 1, nivelMaximo: 10, enConstruccion: true, construccionTerminaEn: new Date(Date.now() + 3600000).toISOString() }
       ],
-      tropas: { N1_Guerreros_elfos: 850, N2_Arqueros_elfos: 400 },
+      tropas: {
+        N1_Guerreros_elfos: 850,
+        N2_Arqueros_elfos: 400,
+        N3_Centauros: 250,
+        N4_Exploradores_elfos: 50
+      },
       produccionDiaria: { oro: 34492, comida: 177, madera: 482 },
       consumoDiario: { comida: 229, agua: 225 }
     }
@@ -74,7 +81,7 @@ export const ESTADO_IMPERIO_MOCK: EstadoImperio = {
       habilidades: ['Golpe de guerra', 'Grito de mando']
     }
   ],
-  recursos: RECURSOS_MOCK,
+  recursos: RECURSOS_SEED,
   ranking: 18,
   puntos: 15432,
   pais: 'CO'
