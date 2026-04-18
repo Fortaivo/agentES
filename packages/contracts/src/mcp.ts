@@ -1,5 +1,5 @@
 // src/types/mcp.ts
-import type { Recursos } from './game';
+import type { Recursos } from './game.js';
 
 // --- Herramientas de lectura ---
 export type ParamsGetEmpireState = Record<string, never>;

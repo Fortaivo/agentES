@@ -1,39 +1,32 @@
 {
-  "name": "vite-react-typescript-starter",
+  "name": "agentes",
   "private": true,
-  "version": "0.0.0",
+  "version": "0.1.0",
   "type": "module",
+  "workspaces": [
+    "packages/*",
+    "apps/*"
+  ],
   "scripts": {
-    "dev": "vite",
-    "build": "vite build",
-    "lint": "eslint .",
-    "preview": "vite preview",
-    "typecheck": "tsc --noEmit -p tsconfig.app.json",
+    "dev": "npm run dev:web",
+    "dev:web": "npm run dev --workspace @agentes/web",
+    "dev:api": "npm run dev --workspace @agentes/api",
+    "dev:worker": "npm run dev --workspace @agentes/worker",
+    "dev:mcp": "npm run dev --workspace @agentes/mcp-server",
+    "build": "npm run build --workspace @agentes/contracts && npm run build --workspace @agentes/api && npm run build --workspace @agentes/worker && npm run build --workspace @agentes/mcp-server && npm run build --workspace @agentes/web",
+    "build:web": "npm run build --workspace @agentes/web",
+    "build:api": "npm run build --workspace @agentes/api",
+    "build:worker": "npm run build --workspace @agentes/worker",
+    "build:mcp": "npm run build --workspace @agentes/mcp-server",
+    "typecheck": "npm run typecheck --workspace @agentes/contracts && npm run typecheck --workspace @agentes/api && npm run typecheck --workspace @agentes/worker && npm run typecheck --workspace @agentes/web",
+    "typecheck:web": "npm run typecheck --workspace @agentes/web",
     "test:e2e": "playwright test",
-    "test:mcp": "npm run build --prefix mcp-server && node scripts/mcp-smoke.mjs",
-    "test:qa": "npm run test:mcp && npm run test:e2e"
-  },
-  "dependencies": {
-    "@supabase/supabase-js": "^2.57.4",
-    "lucide-react": "^0.344.0",
-    "react": "^18.3.1",
-    "react-dom": "^18.3.1"
+    "test:mcp": "npm run build:mcp && node scripts/mcp-smoke.mjs",
+    "test:qa": "npm run test:mcp && npm run test:e2e",
+    "compose:up": "docker compose up --build",
+    "compose:down": "docker compose down -v"
   },
   "devDependencies": {
-    "@eslint/js": "^9.9.1",
-    "@types/react": "^18.3.5",
-    "@types/react-dom": "^18.3.0",
-    "@vitejs/plugin-react": "^4.3.1",
-    "autoprefixer": "^10.4.18",
-    "eslint": "^9.9.1",
-    "eslint-plugin-react-hooks": "^5.1.0-rc.0",
-    "eslint-plugin-react-refresh": "^0.4.11",
-    "globals": "^15.9.0",
-    "postcss": "^8.4.35",
-    "tailwindcss": "^3.4.1",
-    "typescript": "^5.5.3",
-    "typescript-eslint": "^8.3.0",
-    "vite": "^5.4.2",
     "@playwright/test": "^1.49.1"
   }
 }

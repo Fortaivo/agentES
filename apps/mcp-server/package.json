@@ -1,5 +1,5 @@
 {
-  "name": "empire-strike-mcp",
+  "name": "@agentes/mcp-server",
   "version": "1.0.0",
   "description": "Servidor MCP para Empire Strike — agentes IA",
   "type": "module",
@@ -7,7 +7,8 @@
   "scripts": {
     "build": "tsc",
     "start": "node dist/index.js",
-    "dev": "node --import tsx src/index.ts"
+    "dev": "node --import tsx src/index.ts",
+    "typecheck": "tsc --noEmit"
   },
   "dependencies": {
     "@modelcontextprotocol/sdk": "^1.29.0",

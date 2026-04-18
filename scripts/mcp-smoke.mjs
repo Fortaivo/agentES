@@ -8,7 +8,7 @@ import { fileURLToPath } from 'node:url';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const repoRoot = path.resolve(__dirname, '..');
-const mcpEntry = path.join(repoRoot, 'mcp-server', 'dist', 'index.js');
+const mcpEntry = path.join(repoRoot, 'apps', 'mcp-server', 'dist', 'index.js');
 
 /** @type {Record<string, Record<string, unknown>>} */
 const TOOL_ARGS = {
@@ -35,7 +35,7 @@ const TOOL_ARGS = {
 
 async function runMcpSession() {
   const child = spawn(process.execPath, [mcpEntry], {
-    cwd: path.join(repoRoot, 'mcp-server'),
+    cwd: path.join(repoRoot, 'apps', 'mcp-server'),
     stdio: ['pipe', 'pipe', 'pipe'],
     windowsHide: true,
   });

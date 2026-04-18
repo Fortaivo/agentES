@@ -1,5 +1,5 @@
 // src/types/api.ts
-import type { TipoEdificio, Recursos, EstadoImperio } from './game';
+import type { TipoEdificio, Recursos, EstadoImperio } from './game.js';
 
 export interface RespuestaAPI<T> {
   exito: boolean;
